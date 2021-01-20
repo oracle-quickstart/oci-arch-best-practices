@@ -2,3 +2,4 @@
 .terraform*
 terraform*
 ._.DS_Store
+.git*
