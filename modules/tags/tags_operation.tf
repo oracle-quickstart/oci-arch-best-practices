@@ -1,6 +1,6 @@
 resource "oci_identity_tag" "target_compartment" {
-    description         = var.tags_cnf["target_compartment_name"]
-    name                = var.tags_cnf["target_compartment_description"]
+    name         = var.tags_cnf["target_compartment_name"]
+    description                = var.tags_cnf["target_compartment_description"]
     tag_namespace_id    = oci_identity_tag_namespace.namespaces["operation"].id
     is_cost_tracking    = false
     is_retired          = false
@@ -9,8 +9,8 @@ resource "oci_identity_tag" "target_compartment" {
         }
 }
 resource "oci_identity_tag" "application_name" {
-    description         = var.tags_cnf["application_name_name"]
-    name                = var.tags_cnf["application_name_description"]
+    name         = var.tags_cnf["application_name_name"]
+    description                = var.tags_cnf["application_name_description"]
     tag_namespace_id    = oci_identity_tag_namespace.namespaces["operation"].id
     is_cost_tracking    = false
     is_retired          = false
@@ -19,8 +19,8 @@ resource "oci_identity_tag" "application_name" {
         }
 }
 resource "oci_identity_tag" "application_id" {
-    description         = var.tags_cnf["application_id_name"]
-    name                = var.tags_cnf["application_id_description"]
+    name         = var.tags_cnf["application_id_name"]
+    description                = var.tags_cnf["application_id_description"]
     tag_namespace_id    = oci_identity_tag_namespace.namespaces["operation"].id
     is_cost_tracking    = false
     is_retired          = false

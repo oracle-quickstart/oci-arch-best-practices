@@ -1,7 +1,7 @@
 resource "oci_core_ipsec" "vpn_connect_main" {
     compartment_id      = lookup(data.oci_identity_compartments.network_target_compartment.compartments[0],"id")
     cpe_id              = oci_core_cpe.cpe["main"].id
-    drg_id              = oci_core_drg.hub_drg.id
+    drg_id              = oci_core_drg.drg["drg_main"].id
     static_routes       = [var.on_primeses_summary_cidr,]
     display_name        = "VPNConnect - 1"
 }

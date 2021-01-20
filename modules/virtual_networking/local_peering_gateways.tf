@@ -20,7 +20,13 @@ resource "oci_core_local_peering_gateway" "lpg_hub" {
 }
 resource "oci_core_local_peering_gateway" "lpg_spoke" {
     for_each        = var.lpg_spoke_list
-    compartment_id  = lookup(data.oci_identity_compartments.network_target_compartment.compartments[0],"id")
+    compartment_id  = (
+        length(regexall("_prd_", each.key)) > 0 ? (lookup(data.oci_identity_compartments.network_target_compartment_prd.compartments[0],"id")) : (
+            length(regexall("_dev_", each.key)) > 0 ? (lookup(data.oci_identity_compartments.network_target_compartment_dev.compartments[0],"id")) : (
+                length(regexall("_qas_", each.key)) > 0 ? (lookup(data.oci_identity_compartments.network_target_compartment_qas.compartments[0],"id")) : null
+            )
+        )
+    )
     vcn_id          = (
         length(regexall("_prd_", each.key)) > 0 ? (oci_core_vcn.vcns["hoes_prd"].id) : (
             length(regexall("_dev_", each.key)) > 0 ? (oci_core_vcn.vcns["hoes_dev"].id) : (

@@ -13,7 +13,7 @@ If you use a multi regional deployment configure the variable the request for cl
 // Setup Cloud Guard configuration
 resource "oci_cloud_guard_cloud_guard_configuration" "cloud_guard_configuration" {
     for_each            = var.deployment_regions
-    compartment_id      = var.compartment_ids["root_compartment"]
+    compartment_id      = var.tenancy_ocid
     reporting_region    = each.key
     status              = var.cloud_guard_configuration_status
 }
@@ -22,8 +22,9 @@ resource "oci_cloud_guard_cloud_guard_configuration" "cloud_guard_configuration"
 resource oci_cloud_guard_detector_recipe detector_recipe {
     for_each = var.compartments_to_monitor
     compartment_id = (
-        each.key == "root_compartment" ? (var.compartment_ids["root_compartment"]) : (
-            each.key == "target_compartment" ? (var.compartment_ids["root_compartment"]) : null
+        each.key == "root_compartment" ? (var.tenancy_ocid  ) : (
+            each.key == "SubOrg1" ? (lookup(data.oci_identity_compartments.sub_org1.compartments[0],"id")) : (
+                each.key == "SubOrg2" ? (lookup(data.oci_identity_compartments.sub_org2.compartments[0],"id")) : null)
         )
     )
     display_name = "${each.key}_CLOUD_GUARD_DETECTOR_recipe"
@@ -36,8 +37,9 @@ resource oci_cloud_guard_detector_recipe detector_recipe {
 resource oci_cloud_guard_responder_recipe responder_recipe {
     for_each = var.compartments_to_monitor
     compartment_id = (
-        each.key == "root_compartment" ? (var.compartment_ids["root_compartment"]) : (
-            each.key == "target_compartment" ? (var.compartment_ids["target_compartment"]) : null
+        each.key == "root_compartment" ? (var.tenancy_ocid  ) : (
+            each.key == "SubOrg1" ? (lookup(data.oci_identity_compartments.sub_org1.compartments[0],"id")) : (
+                each.key == "SubOrg2" ? (lookup(data.oci_identity_compartments.sub_org2.compartments[0],"id")) : null)
         )
     )
     display_name = "${each.key}_CLOUD_GUARD_RESPONDER_recipe"
@@ -50,8 +52,9 @@ resource oci_cloud_guard_responder_recipe responder_recipe {
 resource oci_cloud_guard_target organization_target {
     for_each = var.compartments_to_monitor
     compartment_id = (
-        each.key == "root_compartment" ? (var.compartment_ids["root_compartment"]) : (
-            each.key == "target_compartment" ? (var.compartment_ids["target_compartment"]) : null
+        each.key == "root_compartment" ? (var.tenancy_ocid  ) : (
+            each.key == "SubOrg1" ? (lookup(data.oci_identity_compartments.sub_org1.compartments[0],"id")) : (
+                each.key == "SubOrg2" ? (lookup(data.oci_identity_compartments.sub_org2.compartments[0],"id")) : null)
         )
     )
     display_name = "${each.key}_TARGET"
@@ -60,8 +63,9 @@ resource oci_cloud_guard_target organization_target {
        detector_recipe_id =  oci_cloud_guard_detector_recipe.detector_recipe[each.key].id
     }
     target_resource_id   = (
-        each.key == "root_compartment" ? (var.compartment_ids["root_compartment"]) : (
-            each.key == "target_compartment" ? (var.compartment_ids["target_compartment"]) : null
+        each.key == "root_compartment" ? (var.tenancy_ocid  ) : (
+            each.key == "SubOrg1" ? (lookup(data.oci_identity_compartments.sub_org1.compartments[0],"id")) : (
+                each.key == "SubOrg2" ? (lookup(data.oci_identity_compartments.sub_org2.compartments[0],"id")) : null)
         )
     )
     target_resource_type = "COMPARTMENT"
@@ -79,8 +83,5 @@ resource oci_cloud_guard_target organization_target {
             }
         responder_rule_id = "MAKE_BUCKET_PRIVATE"
     }
-  }
-  lifecycle {
-      ignore_changes = [system_tags]
   }
 }

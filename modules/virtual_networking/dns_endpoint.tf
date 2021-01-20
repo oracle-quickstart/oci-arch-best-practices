@@ -1,10 +1,10 @@
 resource "oci_dns_resolver_endpoint" "ns_resolver_endpoint_forward" {
     for_each = var.spoke_vcn_list
     endpoint_type = "VNIC"
-    forwarding_address = var.external_dns_cnf["dns_server_address"]
+    //forwarding_address = var.external_dns_cnf["dns_server_address"]
     is_forwarding = "true"
     is_listening = "false"
-    name = "forward_${each.key}_dns"
+    name = each.key
     resolver_id = oci_dns_resolver.ns_resolver[each.key].id
     scope = "PRIVATE"
     subnet_id = oci_core_subnet.spoke_dmz_private[each.key].id
@@ -21,7 +21,7 @@ resource "oci_dns_resolver_endpoint" "ns_resolver_endpoint_listen" {
     ),]
     is_forwarding = false
     is_listening = true
-    name = "listen_${each.key}_dns"
+    name = "listen_${each.key}_ns"
     resolver_id = oci_dns_resolver.ns_resolver[each.key].id
     scope = "PRIVATE"
     subnet_id = oci_core_subnet.spoke_dmz_private[each.key].id

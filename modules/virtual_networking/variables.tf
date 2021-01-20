@@ -5,14 +5,14 @@ variable "on_primeses_summary_cidr" {
 variable external_dns_cnf {
     type = map
     default = {
-        dns_private_zone_1 = "shellrules.ok"
+        dns_private_zone_1 = "internal.ok"
         dns_server_address = "10.0.0.248"
     }
 }
 variable dynamic_router_gw_list {
     type = set(string)
     default = [
-        "drg_hub",
+        "drg_main",
     ]
 }
 variable cpe_list {
@@ -37,6 +37,14 @@ variable vcn_list {
         "hoes_qas",
     ]
 }
+variable vcn_spoke_subnets {
+    type = set(string)
+    default = [
+        "hoes_prd",
+        "hoes_dev",
+        "hoes_qas",
+    ]
+}
 variable "compartment_network_target_filter" {
     default = "network_resources_target"
 }
@@ -49,13 +57,13 @@ variable virtual_network_cnf {
         //Spoke VCNS definition
         vcn_hoes_prd_name               = "hoes_prd"
         vcn_hoes_prd_cidr               = "172.31.232.0/21"
-        vcn_hoes_prd_dnslabel           = "hoes"
+        vcn_hoes_prd_dnslabel           = "prd"
         vcn_hoes_dev_name               = "hoes_dev"
         vcn_hoes_dev_cidr               = "172.31.240.0/21"
-        vcn_hoes_dev_dnslabel           = "hoes_dev"
+        vcn_hoes_dev_dnslabel           = "dev"
         vcn_hoes_qas_name               = "hoes_qas"
         vcn_hoes_qas_cidr               = "172.31.248.0/21"
-        vcn_hoes_qas_dnslabel           = "hoes_qas"
+        vcn_hoes_qas_dnslabel           = "qas"
         //Subnet definition
         hoes_prd_dmz_public_cidr        = "172.31.232.0/24"
         hoes_dev_dmz_public_cidr        = "172.31.240.0/24"

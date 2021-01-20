@@ -1,5 +1,5 @@
 resource "oci_core_service_gateway" "transitive_svc_gateway" {
-    for_each            = var.spoke_vcn_list
+    for_each            = var.vcn_spoke_subnets
     compartment_id      = lookup(data.oci_identity_compartments.network_target_compartment.compartments[0],"id")
     vcn_id          = (
         each.key == "hoes_prd" ? (oci_core_vcn.vcns["hoes_prd"].id) : (

@@ -7,6 +7,6 @@ resource "oci_core_route_table" "hub_lpg" {
         description         = "On Primeses + All External Route Summary"
         destination         = var.on_primeses_summary_cidr
         destination_type    = "CIDR_BLOCK"
-        network_entity_id   =  oci_core_drg.drg["drg_hub"].id
+        network_entity_id   =  oci_core_drg.drg["drg_main"].id
     }
 }

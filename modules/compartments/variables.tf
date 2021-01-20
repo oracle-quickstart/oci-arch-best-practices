@@ -7,8 +7,18 @@ variable "compartment_enable_delete" {
 variable level_one_entities {
     type = set(string)
     default = [
-        "branch_one",
-        "branch_two",
+        "SubOrg1",
+        "SubOrg2",
         "network",
     ]
+}
+
+variable "company_environment_list" {
+  type = set(string)
+  default = [
+    "prd",
+    "dev",
+    "qas",
+  ]
+  
 }
