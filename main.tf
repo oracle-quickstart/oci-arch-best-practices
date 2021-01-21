@@ -20,6 +20,9 @@ provider oci {
 }
 
 locals {
+    // Add your tenacy identification here.
+    // To work in a sandbox you can deploy the code using the target_ocid  variable
+    // If you whant to deploy directly you can set the tenancy ocid to bhoth variables tenancy_ocid and target_ocid
     tenancy_ocid    = "ocid1.tenancy.oc1..<<ADD TENANCY ID>>"
     target_ocid     = "ocid1.compartment.oc1..<<ADD TARGET IF YOU WHANT TEST ISOLATED ID>>"
     delete_timeout  = "3h"
