@@ -1,6 +1,8 @@
 variable tenancy_ocid   {}
 variable target_ocid    {}
-variable delete_timeout {}
+variable delete_timeout {
+  default = "3h"
+}
 variable "compartment_enable_delete" {
   default = true
 }
