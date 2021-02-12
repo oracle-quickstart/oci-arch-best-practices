@@ -3,6 +3,9 @@
 ![version][hoes_tags]
 
 
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/oci-arch-best-practices/tree/main/modules/tags/tags.zip)
+
+
 Tags can help on provide an orthogonal perpective of the services that you have deployed. However indepdendent of the CSP or even rpoject is one of the most renagated contruct and also one that brings relevant lacks management, cost control troubleshooting and also simplification on how to improve security because can also be evaluated on policy.
 
 Here will be preovided the most common basic perspectives that we can observe in cloud deployments. Very important can be leverage the usage of defined tags once we talk on control we can let open to all and any person define in create time what name and values to apply in scale this can became also in a lack of control.

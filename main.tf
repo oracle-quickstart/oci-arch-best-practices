@@ -3,7 +3,7 @@ terraform {
         // Commented due the current versions for OCI RMS do not support version 0.13 yet.
     oci  = {
       source        = "hashicorp/oci"
-      version       =  "~>4.5.0"
+      version       =  "~>4.12.0"
       }
     null = "~>2.1.2"
     }
@@ -13,10 +13,12 @@ terraform {
 
 provider oci {
     region = "us-ashburn-1"
+    retry_duration_seconds = "3600"
 }
 provider oci {
     alias = "home"
     region = "us-phoenix-1"
+    retry_duration_seconds = "3600"
 }
 
 locals {
@@ -69,7 +71,10 @@ module "hoes-security_and_compliance_iam" {
     Vault
 */
 module "hoes-security_and_compliance" {
-    depends_on = [ module.hoes-security_and_compliance_compartments ]
+    depends_on = [ 
+        module.hoes-security_and_compliance_compartments,
+        module.hoes-security_and_compliance_tags,
+    ]
     source = "./modules/security"
     tenancy_ocid    = local.tenancy_ocid
     target_compartment_ocid     = local.target_ocid

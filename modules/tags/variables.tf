@@ -1,5 +1,7 @@
 variable tenancy_ocid   {}
-variable delete_timeout {}
+variable delete_timeout {
+    default = "3h"
+}
 
 variable oci_namespaces {
     type = set(string)

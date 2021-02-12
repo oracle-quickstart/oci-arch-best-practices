@@ -29,9 +29,7 @@ resource oci_cloud_guard_detector_recipe detector_recipe {
     )
     display_name = "${each.key}_CLOUD_GUARD_DETECTOR_recipe"
     source_detector_recipe_id = (data.oci_cloud_guard_detector_recipes.oci_original_detector.detector_recipe_collection.0.items.0.id)
-    lifecycle {
-        ignore_changes = [system_tags]
-  }
+
 }
 
 resource oci_cloud_guard_responder_recipe responder_recipe {
@@ -44,9 +42,7 @@ resource oci_cloud_guard_responder_recipe responder_recipe {
     )
     display_name = "${each.key}_CLOUD_GUARD_RESPONDER_recipe"
     source_responder_recipe_id = (data.oci_cloud_guard_responder_recipes.oci_original_responder.responder_recipe_collection.0.items.0.id)
-    lifecycle {
-        ignore_changes = [system_tags]
-  }
+     
 }
 
 resource oci_cloud_guard_target organization_target {
